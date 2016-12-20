@@ -1,9 +1,9 @@
 Django>=1.10
-django-markdown
+django-markdown-app==0.9.0
 Markdown==2.1.1
 Sphinx==1.1.3
 coverage==3.5.1
 django-coverage==1.2.2
-django-debug-toolbar==1.4
+django-debug-toolbar==1.6
 pep8==0.6.1
 pylint==0.25.1

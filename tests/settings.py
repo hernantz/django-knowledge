@@ -23,7 +23,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 SITE_ID = 1
 SECRET_KEY = 'lolz'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
