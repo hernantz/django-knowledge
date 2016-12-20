@@ -20,7 +20,7 @@ def QuestionForm(user, *args, **kwargs):
     on the status of the passed in user.
     """
 
-    if user.is_anonymous():
+    if user.is_anonymous:
         if not settings.ALLOW_ANONYMOUS:
             return None
         else:
@@ -81,7 +81,7 @@ def ResponseForm(user, question, *args, **kwargs):
             (user.is_staff or question.user == user):
         return None
 
-    if user.is_anonymous():
+    if user.is_anonymous:
         if not settings.ALLOW_ANONYMOUS:
             return None
         else:

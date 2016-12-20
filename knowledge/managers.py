@@ -13,7 +13,7 @@ class QuestionManager(models.Manager):
         if user.is_staff or user.is_superuser:
             return qs.all()
 
-        if user.is_anonymous():
+        if user.is_anonymous:
             return qs.filter(status='public')
 
         return qs.filter(
@@ -33,7 +33,7 @@ class ResponseManager(models.Manager):
         if user.is_staff or user.is_superuser:
             return qs.all()
 
-        if user.is_anonymous():
+        if user.is_anonymous:
             return qs.filter(
                 Q(status='public') |
                 Q(status='inherit', question__status='public')
