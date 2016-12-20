@@ -1,4 +1,4 @@
-Django==1.9.4
+Django>=1.10
 django-markdown
 Markdown==2.1.1
 Sphinx==1.1.3

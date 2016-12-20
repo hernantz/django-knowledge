@@ -7,4 +7,4 @@ echo "Testing Directory: " $DIR
 TARGET=$DIR"/manage.py"
 
 #python $TARGET test --pythonpath="../"
-python $TARGET test 
+python -Wall $TARGET test 
