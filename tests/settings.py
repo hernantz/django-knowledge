@@ -50,12 +50,11 @@ ROOT_URLCONF = 'tests.urls'
 
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(DIRNAME, 'reports').replace('\\','/')
 
-TEMPLATE_DIRS = (
-    os.path.join(DIRNAME, 'templates').replace('\\','/'),
-)
-
 TEMPLATES = [
     {
+        'DIRS': (
+            os.path.join(DIRNAME, 'templates').replace('\\','/'),
+        ),
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
         'OPTIONS': {'context_processors': [
