@@ -74,12 +74,12 @@ class BasicFormTest(TestCase):
 
         question = form.save()
 
-        self.assertEquals(question.status, 'private')
-        self.assertEquals(question.name, None)
-        self.assertEquals(question.email, None)
-        self.assertEquals(question.title, 'This is a title friend!')
-        self.assertEquals(question.body, 'This is the body friend!')
-        self.assertEquals(question.user, self.joe)
+        self.assertEqual(question.status, 'private')
+        self.assertEqual(question.name, None)
+        self.assertEqual(question.email, None)
+        self.assertEqual(question.title, 'This is a title friend!')
+        self.assertEqual(question.body, 'This is the body friend!')
+        self.assertEqual(question.user, self.joe)
 
 
         RESPONSE_POST = {
@@ -92,16 +92,16 @@ class BasicFormTest(TestCase):
 
         response = form.save()
 
-        self.assertEquals(response.status, 'inherit')
-        self.assertEquals(response.name, None)
-        self.assertEquals(response.email, None)
-        self.assertEquals(response.body, 'This is the response body friend!')
-        self.assertEquals(response.user, self.joe)
+        self.assertEqual(response.status, 'inherit')
+        self.assertEqual(response.name, None)
+        self.assertEqual(response.email, None)
+        self.assertEqual(response.body, 'This is the response body friend!')
+        self.assertEqual(response.user, self.joe)
     
     def test_form_question_status(self):
         # test the default for anonymous in tests/settings.py...
         form = QuestionForm(self.joe)
-        self.assertIn('status', form.fields.keys())
+        self.assertIn('status', list(form.fields.keys()))
 
         # internal is only selectable for admins
         QUESTION_POST = {
@@ -119,4 +119,4 @@ class BasicFormTest(TestCase):
             'status': 'public'
         }
         question = QuestionForm(self.joe, QUESTION_POST).save()
-        self.assertEquals(question.status, 'public')
+        self.assertEqual(question.status, 'public')

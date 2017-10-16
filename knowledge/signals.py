@@ -13,9 +13,9 @@ def send_alerts(target_dict, response=None, question=None, **kwargs):
 
     site = Site.objects.get_current()
 
-    for email, name in target_dict.items():
+    for email, name in list(target_dict.items()):
         if isinstance(name, User):
-            name = u'{0} {1}'.format(name.first_name, name.last_name)
+            name = '{0} {1}'.format(name.first_name, name.last_name)
         else:
             name = name[0]
 
@@ -36,7 +36,7 @@ def send_alerts(target_dict, response=None, question=None, **kwargs):
         message_html = render_to_string(
             'django_knowledge/emails/message.html', context)
 
-        subject = u' '.join(line.strip() for line in subject.splitlines()).strip()
+        subject = ' '.join(line.strip() for line in subject.splitlines()).strip()
         msg = EmailMultiAlternatives(subject, message, to=[email])
         msg.attach_alternative(message_html, 'text/html')
         msg.send()
@@ -69,7 +69,7 @@ def knowledge_post_save(sender, instance, created, **kwargs):
                                 if user.has_perm('change_question')])
 
         # remove the creator...
-        if instance.get_email() in out_dict.keys():
+        if instance.get_email() in list(out_dict.keys()):
             del out_dict[instance.get_email()]
 
         func(

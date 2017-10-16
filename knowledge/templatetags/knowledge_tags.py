@@ -1,5 +1,5 @@
 from hashlib import md5
-from urllib import urlencode
+from urllib.parse import urlencode
 
 from django import template
 

@@ -62,46 +62,46 @@ class BasicModelTest(TestCase):
     def test_switching_question(self):
         ## joe asks a question ##
         question = self.question
-        self.assertEquals(question.status, 'private')
+        self.assertEqual(question.status, 'private')
         self.assertIn('private', question.states())
 
         question.public()
-        self.assertEquals(question.status, 'public')
+        self.assertEqual(question.status, 'public')
         self.assertIn('public', question.states())
 
         question.private()
-        self.assertEquals(question.status, 'private')
+        self.assertEqual(question.status, 'private')
         self.assertIn('private', question.states())
 
         # no change
         question.inherit()
-        self.assertEquals(question.status, 'private')
+        self.assertEqual(question.status, 'private')
         self.assertIn('private', question.states())
         question.internal()
-        self.assertEquals(question.status, 'private')
+        self.assertEqual(question.status, 'private')
         self.assertIn('private', question.states())
 
 
     def test_switching_response(self):
         ## joe asks a question ##
         response = self.response
-        self.assertEquals(response.status, 'inherit')
+        self.assertEqual(response.status, 'inherit')
         self.assertIn('inherit', response.states())
 
         response.public()
-        self.assertEquals(response.status, 'public')
+        self.assertEqual(response.status, 'public')
         self.assertIn('public', response.states())
 
         response.internal()
-        self.assertEquals(response.status, 'internal')
+        self.assertEqual(response.status, 'internal')
         self.assertIn('internal', response.states())
 
         response.private()
-        self.assertEquals(response.status, 'private')
+        self.assertEqual(response.status, 'private')
         self.assertIn('private', response.states())
 
         response.inherit()
-        self.assertEquals(response.status, 'inherit')
+        self.assertEqual(response.status, 'inherit')
         self.assertIn('inherit', response.states())
 
 
@@ -202,9 +202,9 @@ class BasicModelTest(TestCase):
         """
         Ensures adding another response isn't crossed into other responses.
         """
-        self.assertEquals(len(self.question.get_responses(self.anon)), 0)
-        self.assertEquals(len(self.question.get_responses(self.joe)), 1)
-        self.assertEquals(len(self.question.get_responses(self.admin)), 1)
+        self.assertEqual(len(self.question.get_responses(self.anon)), 0)
+        self.assertEqual(len(self.question.get_responses(self.joe)), 1)
+        self.assertEqual(len(self.question.get_responses(self.admin)), 1)
 
         question = Question.objects.create(
             title = 'Where is my cat?',
@@ -217,9 +217,9 @@ class BasicModelTest(TestCase):
             body = 'I saw him in the backyard.'
         )
 
-        self.assertEquals(len(self.question.get_responses(self.anon)), 0)
-        self.assertEquals(len(self.question.get_responses(self.joe)), 1)
-        self.assertEquals(len(self.question.get_responses(self.admin)), 1)
+        self.assertEqual(len(self.question.get_responses(self.anon)), 0)
+        self.assertEqual(len(self.question.get_responses(self.joe)), 1)
+        self.assertEqual(len(self.question.get_responses(self.admin)), 1)
 
         self.assertEqual(len(mail.outbox), 0)
 
@@ -242,9 +242,9 @@ class BasicModelTest(TestCase):
             status = 'inherit'
         )
 
-        self.assertEquals(len(question.get_responses(self.anon)), 1)
-        self.assertEquals(len(question.get_responses(self.joe)), 1)
-        self.assertEquals(len(question.get_responses(self.admin)), 1)
+        self.assertEqual(len(question.get_responses(self.anon)), 1)
+        self.assertEqual(len(question.get_responses(self.joe)), 1)
+        self.assertEqual(len(question.get_responses(self.admin)), 1)
 
         self.assertEqual(len(mail.outbox), 0)
 
@@ -252,7 +252,7 @@ class BasicModelTest(TestCase):
     def test_urls(self):
         question_url = reverse('knowledge_thread', args=[self.question.id, slugify(self.question.title)])
 
-        self.assertEquals(self.question.url, question_url)
+        self.assertEqual(self.question.url, question_url)
 
 
     def test_locking(self):
@@ -266,7 +266,7 @@ class BasicModelTest(TestCase):
 
 
     def test_url(self):
-        self.assertEquals(
+        self.assertEqual(
             '/knowledge/questions/{0}/{1}/'.format(
                 self.question.id,
                 slugify(self.question.title)),
@@ -274,8 +274,8 @@ class BasicModelTest(TestCase):
         )
 
     def test_normal_question(self):
-        self.assertEquals(self.question.get_name(), 'Joe Dirt')
-        self.assertEquals(self.question.get_email(), 'joedirt@example.com')
+        self.assertEqual(self.question.get_name(), 'Joe Dirt')
+        self.assertEqual(self.question.get_email(), 'joedirt@example.com')
 
         question = Question.objects.create(
             title = 'Where is my cat?',
@@ -283,8 +283,8 @@ class BasicModelTest(TestCase):
             user = self.bob
         )
 
-        self.assertEquals(question.get_name(), 'bob') # no first/last
-        self.assertEquals(question.get_email(), 'bob@example.com')
+        self.assertEqual(question.get_name(), 'bob') # no first/last
+        self.assertEqual(question.get_email(), 'bob@example.com')
 
 
     def test_anon_question(self):
@@ -295,8 +295,8 @@ class BasicModelTest(TestCase):
             email = 'joedirt@example.com'
         )
 
-        self.assertEquals(question.get_name(), 'Joe Dirt')
-        self.assertEquals(question.get_email(), 'joedirt@example.com')
+        self.assertEqual(question.get_name(), 'Joe Dirt')
+        self.assertEqual(question.get_email(), 'joedirt@example.com')
 
 
 

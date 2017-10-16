@@ -86,7 +86,7 @@ class KnowledgeBase(models.Model):
         their username if all else fails.
         """
         name = (self.name or (self.user and (
-            u'{0} {1}'.format(self.user.first_name, self.user.last_name).strip()\
+            '{0} {1}'.format(self.user.first_name, self.user.last_name).strip()\
             or self.user.username
         )))
         return name.strip() or _("Anonymous")
@@ -276,7 +276,7 @@ class Response(KnowledgeBase):
         verbose_name_plural = _('Responses')
 
     def __unicode__(self):
-        return self.body[0:100] + u'...'
+        return self.body[0:100] + '...'
 
     def states(self):
         """

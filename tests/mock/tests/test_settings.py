@@ -39,7 +39,7 @@ class BasicSettingsTest(TestCase):
         )
 
         form = QuestionForm(self.anon)
-        self.assertNotIn('status', form.fields.keys())
+        self.assertNotIn('status', list(form.fields.keys()))
 
         # missing the name/email...
         QUESTION_POST = {
@@ -65,9 +65,9 @@ class BasicSettingsTest(TestCase):
 
         # question has no user and is public by default
         self.assertFalse(question.user)
-        self.assertEquals(question.name, 'Test Guy')
-        self.assertEquals(question.email, 'anonymous@example.com')
-        self.assertEquals(question.status, 'public')
+        self.assertEqual(question.name, 'Test Guy')
+        self.assertEqual(question.email, 'anonymous@example.com')
+        self.assertEqual(question.status, 'public')
 
         ############# flip setting ##############
         settings.ALLOW_ANONYMOUS = not settings.ALLOW_ANONYMOUS
@@ -84,14 +84,14 @@ class BasicSettingsTest(TestCase):
         }
 
         question = QuestionForm(self.joe, QUESTION_POST).save()
-        self.assertEquals(question.status, 'private')
+        self.assertEqual(question.status, 'private')
 
         ############# flip setting ##############
         settings.AUTO_PUBLICIZE = not settings.AUTO_PUBLICIZE
         ############# flip setting ##############
 
         question = QuestionForm(self.joe, QUESTION_POST).save()
-        self.assertEquals(question.status, 'public')
+        self.assertEqual(question.status, 'public')
 
 
         ############# flip setting ##############
@@ -133,23 +133,23 @@ class BasicSettingsTest(TestCase):
         question_url = reverse('knowledge_thread', args=[self.question.id, slugify(self.question.title)])
 
         r = c.get(reverse('knowledge_thread', args=[self.question.id, 'a-big-long-slug']))
-        self.assertEquals(r.status_code, 301)
+        self.assertEqual(r.status_code, 301)
 
         r = c.get(question_url)
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
 
         ############# flip setting ##############
         settings.SLUG_URLS = not settings.SLUG_URLS
         ############# flip setting ##############
 
         r = c.get(reverse('knowledge_thread', args=[self.question.id, 'a-big-long-slug']))
-        self.assertEquals(r.status_code, 301)
+        self.assertEqual(r.status_code, 301)
 
         r = c.get(question_url)
-        self.assertEquals(r.status_code, 301)
+        self.assertEqual(r.status_code, 301)
 
         r = c.get(reverse('knowledge_thread_no_slug', args=[self.question.id]))
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
 
         ############# flip setting ##############
         settings.SLUG_URLS = not settings.SLUG_URLS
