@@ -1,8 +1,7 @@
 from distutils.core import setup # setuptools breaks
 
 # Dynamically calculate the version based on knowledge.VERSION
-version_tuple = __import__('knowledge').VERSION
-version = '.'.join([str(v) for v in version_tuple])
+version = __import__('knowledge').__version__
 
 setup(
     name = 'django-knowledge',
