@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, AnonymousUser
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template.defaultfilters import slugify
 
 from .test_base import TestCase

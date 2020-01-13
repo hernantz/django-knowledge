@@ -3,7 +3,7 @@ from .test_base import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User, AnonymousUser
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template.defaultfilters import slugify
 
 from knowledge.models import Question, Response, Category
