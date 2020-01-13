@@ -1,10 +1,9 @@
-from knowledge import settings
-
 import django
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.conf import settings as django_settings
-
+from django.db import models
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from knowledge import settings
 from knowledge.managers import QuestionManager, ResponseManager
 from knowledge.signals import knowledge_post_save
 
@@ -175,14 +174,13 @@ class Question(KnowledgeBase):
     def __str__(self):
         return self.title
 
-    @models.permalink
     def get_absolute_url(self):
         from django.template.defaultfilters import slugify
 
         if settings.SLUG_URLS:
-            return ('knowledge_thread', [self.id, slugify(self.title)])
+            return reverse('knowledge_thread', args=(self.id, slugify(self.title)))
         else:
-            return ('knowledge_thread_no_slug', [self.id])
+            return reverse('knowledge_thread_no_slug', args=(self.id,))
 
     def inherit(self):
         pass
