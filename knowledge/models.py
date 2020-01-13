@@ -27,7 +27,7 @@ class Category(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -172,7 +172,7 @@ class Question(KnowledgeBase):
         verbose_name = _('Question')
         verbose_name_plural = _('Questions')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @models.permalink
@@ -275,7 +275,7 @@ class Response(KnowledgeBase):
         verbose_name = _('Response')
         verbose_name_plural = _('Responses')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.body[0:100] + '...'
 
     def states(self):
