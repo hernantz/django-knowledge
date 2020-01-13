@@ -23,5 +23,5 @@ def get_gravatar(email, size=60, rating='g', default=None):
 @register.simple_tag
 def page_query(request, page_num):
     qs = request.GET.copy()
-    qs['page'] = page_num
+    qs['page'] = str(page_num)
     return qs.urlencode().replace('&', '&amp;')
